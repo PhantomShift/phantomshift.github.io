@@ -39,6 +39,10 @@
           <img src="{{img.path}}" alt="{{img.basename}}" loading="lazy">
           {% endif %}
         {% endfor %}
+        {% if page.source-embed %}
+        <h2>Source</h2>
+        {{page.source-embed}}
+        {% endif %}
         <h2>Transcripts</h2>
         <h3>Japanese</h3>
         {% for file in site.static_files %}
