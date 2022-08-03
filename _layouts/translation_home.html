@@ -32,6 +32,9 @@
         <img src="{{page.title-image-url}}" alt="{{page.series-title}}" width="300">
         <h3>{{page.series-title}}</h3>
         <h4><a href="{{page.author-url}}">{{page.author}}</a></h4>
+        {% if page.author-follow %}
+        {{page.author-follow}}
+        {% endif %}
         {{ content }}
         <h4>Entries</h4>
         <ul>
