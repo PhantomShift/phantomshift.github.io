@@ -30,7 +30,8 @@
       <section id="main_content" class="inner">
         {{ content }}
         {% assign docname = page.url | split: "/" | last %}
-        <div><a href="{{page.url | remove: docname}}">Back</a></div>
+        {% assign toremove = "/" | append: docname %}
+        <div><a href="{{page.url | remove: toremove | append: '.html'}}">Back</a></div>
         <!-- For now we're just gonna do basic scrolling lol -->
         <h1><a href="https://twitter.com/agu_knzm/status/1512998788025110532">{{page.title}}</a></h1>
         {% assign path = page.path | remove: ".md" | remove: "_" %}
