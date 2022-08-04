@@ -37,11 +37,11 @@
         {% endif %}
         {{ content }}
         <h4>Entries</h4>
-        <ul>
+        <uol>
           {% assign path = page.url | remove: ".html" %}
           {% for entry in site.documents %}
             {% if entry.url contains path and entry.url != page.url %}
-            <a href="{{entry.url}}">{{entry.title}}</a>
+            <li><a href="{{entry.url}}">{{entry.title}}</a></li>
             {% endif %}
           {% endfor %}
         </ul>
