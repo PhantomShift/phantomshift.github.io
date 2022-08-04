@@ -37,7 +37,7 @@
         {% endif %}
         {{ content }}
         <h4>Entries</h4>
-        <uol>
+        <ul>
           {% assign path = page.url | remove: ".html" %}
           {% for entry in site.documents %}
             {% if entry.url contains path and entry.url != page.url %}
