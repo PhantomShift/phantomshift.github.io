@@ -29,17 +29,46 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         {{ content }}
+
+        
         {% assign docname = page.url | split: "/" | last %}
         {% assign toremove = "/" | append: docname %}
-        <div><a href="{{page.url | remove: toremove | append: '.html'}}">Back</a></div>
+        {% assign dir = page.url | remove: toremove %}
+        <div><a href="{{dir | append: '.html'}}">Back</a></div>
+        
+        <!-- Logic for getting previous and next chapter -->
+        {% assign pagenumber = docname | plus: 0 %}
+        {% assign prev = pagenumber | minus: 1 %}
+        {% assign next = pagenumber | plus: 1 %}
+        {% capture buttons %}
+        <p style="height: 36px">
+        {% for entry in site.documents %}
+        {% if entry.url contains dir and entry.url != page.url %}
+          {% assign entrynumber = entry.url | split: "/" | last | plus: 0 %}
+          {% if entrynumber == 0 %} {% continue %} {% endif %}
+          {% if entrynumber == prev %}
+            {% assign button_name = "Previous" %}
+            <span style="position: relative; font-size: x-large;"><a href="{{entry.url}}">{{"Previous"}}</a></span>
+          {% elsif entrynumber == next %}
+            <span style="position: relative; float:right; font-size: x-large;"><a href="{{entry.url}}">{{"Next"}}</a></span>
+          {% endif %}
+        {% endif %}
+        {% endfor %}
+        </p>
+        {% endcapture %}
+        {{ buttons }}
+        
         <!-- For now we're just gonna do basic scrolling lol -->
-        <h1><a href="https://twitter.com/agu_knzm/status/1512998788025110532">{{page.title}}</a></h1>
         {% assign path = page.path | remove: ".md" | remove: "_" %}
+        <h1><a href="https://twitter.com/agu_knzm/status/1512998788025110532">{{page.title}}</a></h1>
         {% for img in site.static_files %}
           {% if img.extname == ".png" and img.path contains path %}
-          <img src="{{img.path}}" alt="{{img.basename}}" loading="lazy">
+          <img src="{{img.path}}" alt="{{img.basename}}" loading="lazy" width="100%">
           {% endif %}
         {% endfor %}
+
+        {{ buttons }}
+
         {% if page.source-embed %}
         <h2>Source</h2>
         {{page.source-embed}}
