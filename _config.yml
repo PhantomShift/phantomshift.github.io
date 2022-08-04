@@ -35,6 +35,9 @@ theme: jekyll-theme-slate
 plugins:
   - jekyll-feed
 
+github:
+  is_project_page: true
+
 collections:
   translations:
     output: true
